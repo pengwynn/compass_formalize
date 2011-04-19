@@ -27,8 +27,7 @@ welcome_message %Q{
    In your HTML markup, include the JavaScript implementation of
    your choice:
 
-   // a jQuery example
-   <script src="/javascripts/jquery.formalize.js"></script>
+   <script src="/javascripts/dojo.formalize.js"></script>
 
   Please see the Formalize website for documentation:
 

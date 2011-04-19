@@ -28,7 +28,7 @@ welcome_message %Q{
    your choice:
 
    // a jQuery example
-   <script src="/javascripts/jquery.formalize.js"></script>
+   <script src="/javascripts/prototype.formalize.js"></script>
 
   Please see the Formalize website for documentation:
 
