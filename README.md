@@ -28,3 +28,14 @@ your JavaScript framework taste:
 
 ... and follow the provided instructions.
 
+
+## License
+
+
+Licensed under MIT/GPL.
+
+GPL license:
+http://www.gnu.org/licenses/gpl.html
+
+MIT license:
+http://www.opensource.org/licenses/mit-license.php
