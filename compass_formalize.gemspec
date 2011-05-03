@@ -2,14 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{compass_formalize}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.5")
   s.authors = ["Wynn Netherland", "Nathan Smith"]
   s.date = %q{2011-04-19}
   s.description = %q{Compass and Sass port of Nathan Smith's Formalize HTML form normalizer.}
   s.email = %w{wynn.netherland@gmail.com nathan@sonspring.com}
-  s.has_rdoc = false
   s.files = `git ls-files`.split("\n")
   s.homepage = %q{http://github.com/pengwynn/compass_formalize}
   s.require_paths = ["lib"]
