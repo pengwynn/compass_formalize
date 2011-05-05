@@ -16,6 +16,10 @@ If you're starting from scratch, create your Compass project:
 
     compass create my-project -r compass_formalize
 
+If you're adding the library to an existing project, add the following to your config.rb file:
+
+    require 'compass_formalize'
+
 To apply the Formalize pattern, run one of the following, depending on
 your JavaScript framework taste:
 
