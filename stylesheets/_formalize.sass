@@ -61,7 +61,7 @@ input[type="button"]
   -webkit-appearance: none
   +border-radius(11px)
   +background-clip(padding-box)
-  background: #ddd url(../images/button.png) repeat-x
+  background: #ddd image-url("button.png") repeat-x
   +linear-gradient(color-stops(#fff, #ddd))
   border: 1px solid
   border-color: #ddd #bbb #999
@@ -190,7 +190,7 @@ textarea[disabled]
 .is_webkit select
   // Tweaks for Safari + Chrome.
   background:
-    image: url(../images/select_arrow.gif)
+    image: image-url("select_arrow.gif")
     repeat: no-repeat
     position: right center
   padding-right: 20px
@@ -241,7 +241,7 @@ optgroup
 
 .ie6_button,
 * html button
-  background: #ddd url(../images/button.png) repeat-x
+  background: #ddd image-url("button.png") repeat-x
   border: 1px solid
   border-color: #ddd #bbb #999
   cursor: pointer
