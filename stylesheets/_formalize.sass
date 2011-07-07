@@ -62,7 +62,7 @@ input[type="button"]
   +border-radius(11px)
   +background-clip(padding-box)
   background: #ddd image-url("button.png") repeat-x
-  +linear-gradient(color-stops(#fff, #ddd))
+  +background-image(linear-gradient(color-stops(#fff, #ddd)))
   border: 1px solid
   border-color: #ddd #bbb #999
   cursor: pointer
@@ -200,7 +200,7 @@ select[size],
 select[multiple]
   height: auto
 
-.is_webkit select[size]
+.is_webkit select[size],
 .is_webkit select[multiple]
   background-image: none
   padding: 0
