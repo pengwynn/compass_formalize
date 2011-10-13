@@ -1,14 +1,15 @@
-//
-// Note: This file depends on the MooTools library.
-//
+/*
+  Formalize - version 1.1
+
+  Note: This file depends on the MooTools library.
+*/
 
 // Module pattern:
-// http://yuiblog.com/blog/2007/06/12/module-pattern/
+// http://yuiblog.com/blog/2007/06/12/module-pattern
 var FORMALIZE = (function(window, document, undefined) {
   // Private constants.
   var PLACEHOLDER_SUPPORTED = 'placeholder' in document.createElement('input');
   var AUTOFOCUS_SUPPORTED = 'autofocus' in document.createElement('input');
-  var WEBKIT = 'webkitAppearance' in document.createElement('select').style;
   var IE6 = Browser.ie6;
   var IE7 = Browser.ie7;
 
@@ -22,16 +23,6 @@ var FORMALIZE = (function(window, document, undefined) {
     },
     // FORMALIZE.init
     init: {
-      // FORMALIZE.init.detect_webkit
-      detect_webkit: function() {
-        if (!WEBKIT) {
-          return;
-        }
-
-        // Tweaks for Safari + Chrome.
-        // <html class="is_webkit">
-        $(document.documentElement).addClass('is_webkit');
-      },
       // FORMALIZE.init.full_input_size
       full_input_size: function() {
         if (!IE7 || !$$('textarea, input.input_full').length) {
