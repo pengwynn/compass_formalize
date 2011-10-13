@@ -2,14 +2,13 @@
 // Sass = http://sass-lang.com
 // Compass = http://compass-style.org
 
+@import compass/css3/background-clip
+@import compass/css3/border-radius
 @import compass/css3/box-sizing
 @import compass/css3/gradient
-@import compass/css3/border-radius
-@import compass/css3/background-clip
 
 // `Widths
 //----------------------------------------------------------------------------------------------------
-
 .input_tiny
   width: 50px
 
@@ -54,29 +53,61 @@ textarea
   margin: 0
   vertical-align: middle
 
+input[type="radio"],
+input[type="checkbox"]
+  position: relative
+  vertical-align: top
+  top: 3px
+  // IE8, IE9, IE10
+  top: 0\0
+  // IE7
+  *top: -3px
+
+// iPad
+@media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 1024px)
+  input[type="radio"],
+  input[type="checkbox"]
+    vertical-align: baseline
+    top: 2px
+
+// iPhone 3
+@media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 480px)
+  input[type="radio"],
+  input[type="checkbox"]
+    vertical-align: baseline
+    top: 0
+
+// iPhone 4
+@media (-webkit-min-device-pixel-ratio: 2) and (max-device-width: 480px)
+  input[type="radio"],
+  input[type="checkbox"]
+    vertical-align: baseline
+    top: 0
+
 button,
 input[type="reset"],
 input[type="submit"],
 input[type="button"]
   -webkit-appearance: none
-  +border-radius(11px)
+  +border-radius(4px)
   +background-clip(padding-box)
   background: #ddd image-url("button.png") repeat-x
-  +background-image(linear-gradient(color-stops(#fff, #ddd)))
+  +background(linear-gradient(color-stops(#fff, #ddd)))
   border: 1px solid
   border-color: #ddd #bbb #999
   cursor: pointer
   color: #333
-  font: bold 12px/1.2 Arial, sans-serif
+  // Helvetica Neue present, because it works better
+  // for line-height on buttons than Arial, on OS X.
+  font: bold 12px/1.3 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif
   outline: 0
   overflow: visible
-  padding: 3px 10px 4px
+  padding: 3px 10px
   text-shadow: #fff 0 1px 1px
   width: auto
-
   // IE7
   *padding-top: 2px
-  *padding-bottom: 0px
+  *padding-bottom: 0
 
 button
   // IE7
@@ -98,37 +129,45 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"]
-  -webkit-appearance: none
-  +border-radius(0)
   +box-sizing(border-box)
   +background-clip(padding-box)
+  +border-radius(0)
+  -webkit-appearance: none
   background-color: #fff
   border: 1px solid
   border-color: #848484 #c1c1c1 #e1e1e1
   color: #000
   outline: 0
   padding: 2px 3px
-  font:
-    size: 13px
-    family: Arial, sans-serif
+  font-size: 13px
+  // Leaving out Helvetica Neue, to not throw off size="..."
+  // on inputs. Arial is more reliable, on Windows and OS X.
+  font-family: Arial, 'Liberation Sans', FreeSans, sans-serif
   height: 1.8em
-
   // IE7
   *padding-top: 2px
   *padding-bottom: 1px
   *height: auto
 
 // Separate rule for Firefox.
+// Separate rule for IE, too.
 // Cannot stack with WebKit's.
+::-webkit-input-placeholder
+  color: #888
 
-input.placeholder-text,
-textarea.placeholder-text,
 input:-moz-placeholder,
 textarea:-moz-placeholder
   color: #888
 
-::-webkit-input-placeholder
+input.placeholder-text,
+textarea.placeholder-text
   color: #888
+
+\:invalid
+  // Suppress red glow that Firefox
+  // adds to form fields by default,
+  // even when user is still typing.
+  +box-shadow(none)
 
 button:focus,
 button:active,
@@ -138,10 +177,7 @@ select:focus,
 select:active,
 textarea:focus,
 textarea:active
-  -moz-box-shadow: #06f 0 0 7px
-  -webkit-box-shadow: #06f 0 0 7px
-  box-shadow: #06f 0 0 7px
-
+  +box-shadow(#06f 0 0 7px 0)
   // for Opera
   z-index: 1
 
@@ -151,9 +187,7 @@ input[type="radio"]:focus,
 input[type="radio"]:active,
 input[type="checkbox"]:focus,
 input[type="checkbox"]:active
-  -moz-box-shadow: none
-  -webkit-box-shadow: none
-  box-shadow: none
+  +box-shadow(none)
 
 select[disabled],
 textarea[disabled],
@@ -178,32 +212,49 @@ select[disabled],
 select[disabled] option,
 select[disabled] optgroup,
 textarea[disabled]
-  -moz-box-shadow: none
-  -webkit-box-shadow: none
-  box-shadow: none
+  +box-shadow(none)
+  -moz-user-select: -moz-none
   -webkit-user-select: none
-  -moz-user-select: none
+  -khtml-user-select: none
   user-select: none
   color: #888
   cursor: default
-
-.is_webkit select
-  // Tweaks for Safari + Chrome.
-  background:
-    image: image-url("select_arrow.gif")
-    repeat: no-repeat
-    position: right center
-  padding-right: 20px
 
 textarea,
 select[size],
 select[multiple]
   height: auto
 
-.is_webkit select[size],
-.is_webkit select[multiple]
-  background-image: none
-  padding: 0
+// Tweaks for Safari + Chrome.
+@media (-webkit-min-device-pixel-ratio: 0)
+  select
+    background-image: image-url("select_arrow.gif")
+    background-repeat: no-repeat
+    background-position: right center
+    padding-right: 20px
+  select[size],
+  select[multiple]
+    background-image: none
+    padding: 0
+  ::-webkit-validation-bubble-message
+    -webkit-box-shadow: rgba(#000, 0.5) 0 0 5px 0
+    box-shadow: rgba(#000, 0.5) 0 0 5px 0
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #000))
+    border: 1px solid
+    border-color: #747474 #5e5e5e #4f4f4f
+    color: #fff
+    font: 13px/17px 'Lucida Grande', Arial, 'Liberation Sans', FreeSans, sans-serif
+    overflow: hidden
+    padding: 15px 15px 17px
+    text-shadow: #000 0 0 1px
+    height: 16px
+  ::-webkit-validation-bubble-arrow,
+  ::-webkit-validation-bubble-top-outer-arrow,
+  ::-webkit-validation-bubble-top-inner-arrow
+    -webkit-box-shadow: none
+    box-shadow: none
+    background: #666
+    border: 0
 
 textarea
   min-height: 40px
