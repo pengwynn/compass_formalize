@@ -113,7 +113,9 @@ var FORMALIZE = (function(window, document, undefined) {
 
           // Prevent <form> from accidentally
           // submitting the placeholder text.
-          el.getParent('form').addEvents({
+          var form = el.getParent('form');
+
+          form && form.addEvents({
             'submit': function() {
               if (el.value === text) {
                 el.set('value', '').removeClass('placeholder_text');
