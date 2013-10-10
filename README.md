@@ -30,6 +30,16 @@ your JavaScript framework taste:
     compass install formalize/prototype
     compass install formalize/yui
 
+Don't forget to add this to your sass files
+
+ If you're using SCSS syntax, in your stylesheet:
+
+   @import "formalize";
+
+ or if you're using indented (Sass) syntax
+
+   @import "formalize"  
+
 After following the provided instructions, we need to tell Compass to use relative paths so that all our resources load correctly. In config.rb, we uncomment the following line:
 
     relative_assets = true
