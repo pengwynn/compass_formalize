@@ -4,7 +4,7 @@ no_configuration_file!
 file '../common/button.png', :like => :image, :to => 'images/button.png'
 file '../common/select_arrow.gif', :like => :image, :to => 'images/select_arrow.gif'
 
-discover :all 
+#discover :all 
 
 description "Teach your forms some manners."
 
