@@ -1,5 +1,10 @@
 # Make sure you list all the project template files here in the manifest.
-discover :all
+
+# Image Import
+file '../common/button.png', :like => :image, :to => 'button.png'
+file '../common/select_arrow.gif', :like => :image, :to => 'select_arrow.gif'
+
+discover :all 
 
 description "Teach your forms some manners."
 

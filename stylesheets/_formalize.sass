@@ -2,11 +2,7 @@
 // Sass = http://sass-lang.com
 // Compass = http://compass-style.org
 
-@import compass/css3/background-clip
-@import compass/css3/border-radius
-@import compass/css3/box-shadow
-@import compass/css3/box-sizing
-@import compass/css3/gradient
+@import compass/css3
 
 // `Widths
 //----------------------------------------------------------------------------------------------------
@@ -29,11 +25,12 @@
 .input_xxlarge
   width: 300px
 
-.input_full
-  width: 100%
+@if $legacy-support-for-ie7
+  .input_full
+    width: 100%
 
-// Added via JS to <textarea> and class="input-full".
-// Applies only to IE7. Other browsers don't need it.
+  // Added via JS to <textarea> and class="input-full".
+  // Applies only to IE7. Other browsers don't need it. 
 
 .input_full_wrap
   display: block
@@ -42,58 +39,24 @@
 // `UI Consistency
 //----------------------------------------------------------------------------------------------------
 
-::-moz-focus-inner
-  border: 0
-  padding: 0
-
 input[type="search"]::-webkit-search-decoration
   display: none
 
-input[type="radio"],
-input[type="checkbox"]
-  position: relative
-  vertical-align: top
-  top: 3px
-  // IE8, IE9, IE10
-  top: 0\0
-  // IE7
-  *top: -3px
-
-// iPad
-@media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 1024px)
-  input[type="radio"],
-  input[type="checkbox"]
-    vertical-align: baseline
-    top: 2px
-
-// iPhone 3
-@media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 480px)
-  input[type="radio"],
-  input[type="checkbox"]
-    vertical-align: baseline
-    top: 0
-
-// iPhone 4
-@media (-webkit-min-device-pixel-ratio: 2) and (max-device-width: 480px)
-  input[type="radio"],
-  input[type="checkbox"]
-    vertical-align: baseline
-    top: 0
-
 input,
 button,
+a.button,
 select,
 textarea
-  margin: 0
-  vertical-align: middle
+  // Suppress red glow that Firefox
+  // adds to form fields by default.
+  &:invalid
+    +box-shadow(none)
 
-button:focus,
-input:focus,
-select:focus,
-textarea:focus,
-  +box-shadow(#06f 0 0 7px 0)
-  // for Opera
-  z-index: 1
+  // Add blue glow.
+  &:focus
+    +box-shadow(#06f 0 0 5px 0)
+    // for Opera
+    z-index: 1
 
 input[type="file"],
 input[type="radio"],
@@ -103,40 +66,61 @@ input[type="checkbox"]
     +box-shadow(none)
 
 button,
+a.button,
 input[type="reset"],
 input[type="submit"],
 input[type="button"]
   -webkit-appearance: none
   +border-radius(4px)
   +background-clip(padding-box)
-  background: #ddd image-url("button.png", false, false) repeat-x
-  +background-image(linear-gradient(color-stops(#fff, #ddd)))
+  // Base64 encoded "../images/button.png' with IE7 fallback
+  background: #ddd  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAAAAADhgtq/AAAAHElEQVQoz2P8z4ADsOCW+UeGnsFs2nDzz5AMHQA+JRlAyyOraAAAAABJRU5ErkJggg==) repeat-x
+  @if $legacy-support-for-ie7
+    background: #ddd image-url('button.png') repeat-x
+  +background-image(linear-gradient(#fff, #ddd))
   border: 1px solid
   border-color: #ddd #bbb #999
   cursor: pointer
   color: #333
+  display: inline-block
   // Helvetica Neue present, because it works better
   // for line-height on buttons than Arial, on OS X.
   font: bold 12px/1.3 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif
   outline: 0
   overflow: visible
+  margin: 0
   padding: 3px 10px
   text-shadow: #fff 0 1px 1px
+  text-decoration: none
+  vertical-align: top
   width: auto
   &:hover
     +background-image(linear-gradient(#fff, #eee 1px, #ccc))
+    text-decoration: none
   &:active
-    +background-image(linear-gradient(#fff, #ddd 1px, #eee))
+    +background-image(linear-gradient(#ddd, #eee))
     +box-shadow(inset rgba(#000, 0.25) 0 1px 2px 0)
     border-color: #999 #bbb #ddd
-  // IE7
-  *padding-top: 2px
-  *padding-bottom: 0
+  @if $legacy-support-for-ie7
+    // IE7
+    *padding-top: 2px
+    *padding-bottom: 0
 
-button
-  // IE7
-  *padding-top: 1px
-  *padding-bottom: 1px
+  // Kill phantom spacing and dotted
+  // border that appears in Firefox.
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
+
+@if $legacy-support-for-ie7
+  a.button
+    // IE7
+    *padding-bottom: 3px
+
+  button
+    // IE7
+    *padding-top: 1px
+    *padding-bottom: 1px  
 
 textarea,
 select,
@@ -162,6 +146,7 @@ input[type="week"]
   border-color: #848484 #c1c1c1 #e1e1e1
   color: #000
   outline: 0
+  margin: 0
   padding: 2px 3px
   text-align: left
   font-size: 13px
@@ -169,19 +154,22 @@ input[type="week"]
   // on inputs. Arial is more reliable, on Windows and OS X.
   font-family: Arial, 'Liberation Sans', FreeSans, sans-serif
   height: 1.8em
-  // IE7
-  *padding-top: 2px
-  *padding-bottom: 1px
-  *height: auto
+  vertical-align: top
+  @if $legacy-support-for-ie7
+    // IE7
+    *padding-top: 2px
+    *padding-bottom: 1px
+    *height: auto
   &[disabled]
-    background-color: #eee
+    background-color: #eee  
 
 button[disabled],
 input[disabled],
 select[disabled],
 select[disabled] option,
 select[disabled] optgroup,
-textarea[disabled]
+textarea[disabled],
+a.button_disabled
   +box-shadow(none)
   -moz-user-select: -moz-none
   -webkit-user-select: none
@@ -193,7 +181,8 @@ textarea[disabled]
 // Separate rule for Firefox.
 // Separate rule for IE, too.
 // Cannot stack with WebKit's.
-::-webkit-input-placeholder
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder
   color: #888
 
 input:-moz-placeholder,
@@ -204,47 +193,56 @@ input.placeholder_text,
 textarea.placeholder_text
   color: #888
 
-\:invalid
-  // Suppress red glow that Firefox
-  // adds to form fields by default,
-  // even when user is still typing.
-  +box-shadow(none)
-
 textarea,
 select[size],
 select[multiple]
   height: auto
 
+// Set height back to normal,
+// for Opera, WebKit, and IE.
+select[size="0"],
+select[size="1"]
+  height: 1.8em
+  @if $legacy-support-for-ie7
+    // IE7
+    *height: auto  
+
 // Tweaks for Safari + Chrome.
 @media (-webkit-min-device-pixel-ratio: 0)
-  select
-    background-image: image-url("select_arrow.gif", false, false)
+  select[size],
+  select[multiple],
+  select[multiple][size]
+    background-image: none
+    padding-right: 3px
+
+  select,
+  select[size="0"],
+  select[size="1"]
+    // Base64 encoded "../images/select_arrow.gif"
+    background-image: url(data:image/png;base64,R0lGODlhDQAEAIAAAAAAAP8A/yH5BAEHAAEALAAAAAANAAQAAAILhA+hG5jMDpxvhgIAOw==)
     background-repeat: no-repeat
     background-position: right center
     padding-right: 20px
-  select[size],
-  select[multiple]
-    background-image: none
-    padding: 0
+
   ::-webkit-validation-bubble-message
-    -webkit-box-shadow: rgba(#000, 0.5) 0 0 5px 0
-    box-shadow: rgba(#000, 0.5) 0 0 5px 0
+    -webkit-box-shadow: none
+    box-shadow: none
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #000))
-    border: 1px solid
-    border-color: #747474 #5e5e5e #4f4f4f
+    border: 0
     color: #fff
     font: 13px/17px 'Lucida Grande', Arial, 'Liberation Sans', FreeSans, sans-serif
     overflow: hidden
     padding: 15px 15px 17px
     text-shadow: #000 0 0 1px
-    height: 16px
+    min-height: 16px
+
   ::-webkit-validation-bubble-arrow,
   ::-webkit-validation-bubble-top-outer-arrow,
   ::-webkit-validation-bubble-top-inner-arrow
     -webkit-box-shadow: none
     box-shadow: none
     background: #666
-    border: 0
+    border-color: #666
 
 textarea
   min-height: 40px
@@ -256,65 +254,82 @@ optgroup
   color: #000
   font-style: normal
   font-weight: normal
+  // Font family repeated, for Firefox.
+  font-family: Arial, 'Liberation Sans', FreeSans, sans-serif
 
-// `IE6
-//----------------------------------------------------------------------------------------------------
+  // Kill phantom spacing and dotted
+  // border that appears in Firefox.
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
 
-// Everything below this line is for IE6.
-// Delete it if you don't support it! :)
+@if $legacy-support-for-ie6
+  // `IE6
+    //----------------------------------------------------------------------------------------------------
 
-// Classes are added dynamically via JS,
-// because IE6 doesn't support attribute
-// selectors: .ie6_button, .ie6_input, etc.
+  // Everything below this line is for IE6.
+  // Delete it if you don't support it! :)
 
-// Note: These style rules are somewhat
-// duplicated because IE6 bombs out when
-// it sees attribute selectors. Example:
+  // Classes are added dynamically via JS,
+  // because IE6 doesn't support attribute
+  // selectors: .ie6_button, .ie6_input, etc.
 
-// .ie6_button {
-//   This works in IE6.
-// }
+  // Note: These style rules are somewhat
+  // duplicated because IE6 bombs out when
+  // it sees attribute selectors. Example:
 
-// .ie6_button,
-// input[type=submit] {
-//   This doesn't work.
-// }
+  //   .ie6_button {
+  //     This works in IE6.
+  //   }
 
-.ie6_button,
-* html button
-  background: #ddd image-url("button.png", false, false) repeat-x
-  border: 1px solid
-  border-color: #ddd #bbb #999
-  cursor: pointer
-  color: #333
-  font: bold 12px/1.2 Arial, sans-serif
-  padding: 2px 10px 0px
-  overflow: visible
-  width: auto
+  //   .ie6_button,
+  //   input[type=submit] {
+  //     This doesn't work.
+  //   }
 
-* html button
-  padding-top: 1px
-  padding-bottom: 1px
+  .ie6_button,
+  * html button,
+  * html a.button
+    background: #ddd image-url('button.png') repeat-x
+    border: 1px solid
+    border-color: #ddd #bbb #999
+    cursor: pointer
+    color: #333
+    font: bold 12px/1.2 Arial, sans-serif
+    padding: 2px 10px 0
+    text-decoration: none
+    overflow: visible
+    vertical-align: top
+    width: auto
 
-.ie6_input,
-* html textarea,
-* html select
-  background: #fff
-  border: 1px solid
-  border-color: #848484 #c1c1c1 #e1e1e1
-  color: #000
-  padding: 2px 3px 1px
-  font-size: 13px
-  font-family: Arial, sans-serif
-  vertical-align: top
+  * html a.button
+    position: relative
+    top: 3px
+    padding-bottom: 2px
 
-* html select
-  margin-top: 1px
+  * html button
+    padding-top: 1px
+    padding-bottom: 1px
 
-.placeholder_text,
-.ie6_input_disabled,
-.ie6_button_disabled
-  color: #888
+  .ie6_input,
+  * html textarea,
+  * html select
+    background: #fff
+    border: 1px solid
+    border-color: #848484 #c1c1c1 #e1e1e1
+    color: #000
+    padding: 2px 3px 1px
+    font-size: 13px
+    font-family: Arial, sans-serif
+    vertical-align: top
 
-.ie6_input_disabled
-  background: #eee
+  * html select
+    margin-top: 1px
+
+  .placeholder_text,
+  .ie6_input_disabled,
+  .ie6_button_disabled
+    color: #888
+
+  .ie6_input_disabled
+    background: #eee
