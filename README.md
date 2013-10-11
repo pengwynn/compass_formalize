@@ -46,19 +46,24 @@ After following the provided instructions, we need to tell Compass to use relati
     relative_assets = true
 
 __New__ in version 0.0.5 
-If you don't need to support IE6 and/or IE7 you can add the following to your file before your @import "formalize"
+If you don't need or want to support IE6 and/or IE7 you can add the following to your file before your @import "formalize"
 
 If you're using SCSS syntax, in your stylesheet:
 
-    $legacy-support-for-ie6 = false;
-    $legacy-support-for-ie7 = false;
+    $legacy-support-for-ie6: false;
+    $legacy-support-for-ie7: false;
+    @import "formalize";
 
  or if you're using indented (Sass) syntax 
 
-    $legacy-support-for-ie6 = false
-    $legacy-support-for-ie7 = false
+    $legacy-support-for-ie6: false
+    $legacy-support-for-ie7: false
+    @import "formalize"
     
-This will not add in the IE 6 and IE 7 css hacks and extra classes
+This will not add the IE 6 and IE 7 css hacks and extra classes to the formalize css. You don't need the JS libraries either as the are for IE 6 & 7 also.
+
+To remove legacy support for webkit and firefox and experimental  support for opera, microsoft, and khtml css see: http://compass-style.org/reference/compass/support
+
  
 And we're all set!
 
