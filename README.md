@@ -26,6 +26,7 @@ your JavaScript framework taste:
     compass install formalize/dojo
     compass install formalize/extjs
     compass install formalize/jquery
+    compass install formalize/jquery-legacy
     compass install formalize/mootools
     compass install formalize/prototype
     compass install formalize/yui
