@@ -4,7 +4,7 @@
 file '../common/button.png', :like => :image, :to => 'button.png'
 file '../common/select_arrow.gif', :like => :image, :to => 'select_arrow.gif'
 
-discover :all
+discover :all 
 
 description "Teach your forms some manners."
 
@@ -32,7 +32,8 @@ welcome_message %Q{
    In your HTML markup, include the JavaScript implementation of
    your choice:
 
-   <script src="/javascripts/mootools.formalize.js"></script>
+   // a jQuery example
+   <script src="/javascripts/jquery.formalize.legacy.js"></script>
 
   Please see the Formalize website for documentation:
 

@@ -2,6 +2,12 @@
   Formalize - version 1.2
 
   Note: This file depends on the jQuery library.
+
+  This version of Formalize, "jquery.formalize.legacy.js"
+  is intended for use with jQuery version 1.4, and exists
+  because Drupal 7 ships with jQuery 1.4.4. When you are
+  starting a new project with a current version of jQuery,
+  you should simply use the "jquery.formalize.js" instead.
 */
 
 // Module pattern:
@@ -34,7 +40,7 @@ var FORMALIZE = (function($, window, document, undefined) {
     init: {
       // FORMALIZE.init.disable_link_button
       disable_link_button: function() {
-        $(document.documentElement).on('click', 'a.button_disabled', function() {
+        $(document.documentElement).delegate('a.button_disabled', 'click', function() {
           return false;
         });
       },
@@ -139,7 +145,7 @@ var FORMALIZE = (function($, window, document, undefined) {
             if (el.val() === text) {
               el.val('').removeClass('placeholder_text');
             }
-          }).on('reset', function() {
+          }).bind('reset', function() {
             setTimeout(FORMALIZE.misc.add_placeholder, 50);
           });
         });

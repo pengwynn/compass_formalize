@@ -26,14 +26,45 @@ your JavaScript framework taste:
     compass install formalize/dojo
     compass install formalize/extjs
     compass install formalize/jquery
+    compass install formalize/jquery-legacy
     compass install formalize/mootools
     compass install formalize/prototype
     compass install formalize/yui
+
+Don't forget to add this to your sass files
+
+ If you're using SCSS syntax, in your stylesheet:
+
+    @import "formalize";
+
+ or if you're using indented (Sass) syntax
+
+    @import "formalize"
 
 After following the provided instructions, we need to tell Compass to use relative paths so that all our resources load correctly. In config.rb, we uncomment the following line:
 
     relative_assets = true
 
+__New__ in version 0.0.5 
+If you don't need or want to support IE6 and/or IE7 you can add the following to your file before your @import "formalize"
+
+If you're using SCSS syntax, in your stylesheet:
+
+    $legacy-support-for-ie6: false;
+    $legacy-support-for-ie7: false;
+    @import "formalize";
+
+ or if you're using indented (Sass) syntax 
+
+    $legacy-support-for-ie6: false
+    $legacy-support-for-ie7: false
+    @import "formalize"
+    
+This will not add the IE 6 and IE 7 css hacks and extra classes to the formalize css. You don't need the JS libraries either as the are for IE 6 & 7 also.
+
+To remove legacy support for webkit and firefox and experimental  support for opera, microsoft, and khtml css see: http://compass-style.org/reference/compass/support
+
+ 
 And we're all set!
 
 
